@@ -1,13 +1,19 @@
 <?php
-	include_once '../koneksi.php';
-	if(isset($_COOKIE['sukses']))
-	{
-		echo '<script type="text/javascript">
-			alert('.$_COOKIE["sukses"].')
-			</script>';
-	}
-	$supplier 	= mysqli_query($koneksi,"SELECT * FROM supplier");
+  include('../koneksi.php');
+  $upload_dir = '../uploads/';
 
+  if(isset($_GET['delete'])){
+		$id = $_GET['delete'];
+		$sql = "select * from supplier where id = ".$id;
+		$result = mysqli_query($conn, $sql);
+		if(mysqli_num_rows($result) > 0){
+			$row = mysqli_fetch_assoc($result);
+			$sql = "delete from supplier where id=".$id;
+			if(mysqli_query($conn, $sql)){
+				header('location:daftar-supplier.php');
+			}
+		}
+	}
 ?>
 <!doctype html>
 <html lang="en">
@@ -60,7 +66,7 @@
 						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
 					</div>
 				</form>
-				
+		
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
@@ -120,7 +126,64 @@
         </div>
 		<!-- END LEFT SIDEBAR -->
 		<!-- MAIN -->
+		<div class="main">
+
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+	<h3 class="page-title">Daftar Supplier</h3>
+
+	<div class="row">
+		<div class="col-md-12">
+
+			<!-- BASIC TABLE -->
+			<div class="panel">
+				<div class="panel-heading">
+					<h3 class="panel-title">Tabel Suppplier</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr><th>id</th><th>Nama Supplier</th><th>Alamat Supplier</th><th>Action</th></tr>
+						</thead>
+						<tbody>
+						<?php
+                            $sql = "select * from supplier";
+                            $result = mysqli_query($conn, $sql);
+                    				if(mysqli_num_rows($result)){
+                    					while($row = mysqli_fetch_assoc($result)){
+                          ?>
+                          <tr>
+                            <td><?php echo $row['id'] ?></td>
+                            <td><?php echo $row['nama_supplier'] ?></td>
+                            <td><?php echo $row['alamat_supplier'] ?></td>
+                            <td><?php echo $row['kontak_supplier'] ?></td>
+                            <td class="text-center">
+                          
+							  <a href="user-supplier.php?id=<?php echo $row['id'] ?>" button type="button" class="btn btn-primary ">Edit</a>
+                              <a href="daftar-supplier.php?delete=<?php echo $row['id'] ?>" type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
+                            </td>
+                          </tr>
+                          <?php
+                              }
+                            }
+                          ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- END BASIC TABLE -->
+
+		</div>
+		
+	</div>
 	
+
+				</div>
+			</div>
+			<!-- END MAIN CONTENT -->
+		</div>
+		
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
 	<script src="../assets/vendor/jquery/jquery.min.js"></script>
@@ -247,6 +310,13 @@
 
 	});
 	</script>
+	    <script src="js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').DataTable();
+      } );
+    </script>
 </body>
 
 </html>
