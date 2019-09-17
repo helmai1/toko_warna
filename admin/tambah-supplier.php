@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group">
                       <label for="kontak_supplier">Kontak Supplier</label>
-                      <input type="text" class="form-control" name="kontak_supplier" placeholder="Enter KontakSupplier" value="">
+                      <input type="number" class="form-control" name="kontak_supplier" placeholder="Enter KontakSupplier" value="">
                     </div>
                     <div class="form-group">
                       <button type="submit" name="Submit" class="btn btn-primary waves">Submit</button>

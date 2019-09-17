@@ -1,3 +1,4 @@
+
 <?php
   require_once('../koneksi.php');
   $upload_dir = '../uploads/';
@@ -14,15 +15,15 @@
   }
 
   if(isset($_POST['Submit'])){
-	$nama_supplier = $_POST['nama_supplier'];
-    $alamat_supplier = $_POST['alamat_supplier'];
+		$nama_supplier = $_POST['nama_supplier'];
+    $alamat_supplier = $_POST['alamat_supplier'];        
     $kontak_supplier = $_POST['kontak_supplier'];
-
+		
 		if(!isset($errorMsg)){
 			$sql = "update supplier
 									set nama_supplier = '".$nama_supplier."',
 										alamat_supplier = '".$alamat_supplier."',
-                    kontak_supplier = '".$kontak_supplier."',
+										kontak_supplier = '".$kontak_supplier."'
 					where id=".$id;
 			$result = mysqli_query($conn, $sql);
 			if($result){
@@ -41,7 +42,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Edit-User</title>
+    <title>Edit-Supplier</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
@@ -69,7 +70,7 @@
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
-                Edit User
+                Edit Supplier
               </div>
               <div class="card-body">
                 <form class="" action="" method="post" enctype="multipart/form-data">
@@ -83,7 +84,7 @@
                     </div>
                     <div class="form-group">
                       <label for="kontak_supplier">Kontak Supplier</label>
-                      <input type="text" class="form-control" name="kontak_supplier" placeholder="Enter KontakSupplier" value="<?php echo $row['kontak_supplier']; ?>">
+                      <input type="number" class="form-control" name="kontak_supplier" placeholder="Enter KontakSupplier" value="<?php echo $row['kontak_supplier']; ?>">
                     </div>
                     <div class="form-group">
                       <button type="submit" name="Submit" class="btn btn-primary waves">Submit</button>

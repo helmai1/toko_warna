@@ -17,7 +17,7 @@
 
 		if(!isset($errorMsg)){
 			$sql = "insert into supplier(nama_supplier , alamat_supplier, kontak_supplier)
-					values('".$nama_supplier."', '".$alamat_supplier."', '".$kontak_supllier."')";
+					values('".$nama_supplier."', '".$alamat_supplier."', '".$kontak_supplier."')";
 			$result = mysqli_query($conn, $sql);
 			if($result){
 				$successMsg = 'New record added successfully';

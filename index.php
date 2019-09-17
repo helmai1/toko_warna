@@ -38,7 +38,7 @@
 					<div class="left">
 						<div class="content">
 							<div class="header">
-								<div class="logo text-center"><img src="assets/img/logo-dark.png" alt="Klorofil Logo"></div>
+								<div class="logo text-center"><img src="assets/img/warna_logo.png" alt="Klorofil Logo"></div>
 								<p class="lead">Login to your account</p>
 
 								
@@ -63,8 +63,8 @@
 					<div class="right">
 						<div class="overlay"></div>
 						<div class="content text">
-							<h1 class="heading">Free Bootstrap dashboard template</h1>
-							<p>by The Develovers</p>
+							<h1 class="heading">Toko Warna Kediri</h1>
+							<p>by Helmi, Zaki dan Prestyan :)</p>
 						</div>
 					</div>
 					<div class="clearfix"></div>

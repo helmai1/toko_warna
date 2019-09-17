@@ -54,7 +54,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="../assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+				<a href="index.html"><img src="../assets/img/warna_logo2.png"  alt="Klorofil Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -144,7 +144,7 @@
 				<div class="panel-body">
 					<table class="table">
 						<thead>
-							<tr><th>id</th><th>Nama Supplier</th><th>Alamat Supplier</th><th>Action</th></tr>
+							<tr><th>id</th><th>Nama Supplier</th><th>Alamat Supplier</th><th>Kontak</th><th>Action</th></tr>
 						</thead>
 						<tbody>
 						<?php
@@ -160,7 +160,7 @@
                             <td><?php echo $row['kontak_supplier'] ?></td>
                             <td class="text-center">
                           
-							  <a href="user-supplier.php?id=<?php echo $row['id'] ?>" button type="button" class="btn btn-primary ">Edit</a>
+							  <a href="supplier-edit.php?id=<?php echo $row['id'] ?>" button type="button" class="btn btn-primary ">Edit</a>
                               <a href="daftar-supplier.php?delete=<?php echo $row['id'] ?>" type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
                             </td>
                           </tr>

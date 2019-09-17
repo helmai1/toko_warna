@@ -1,3 +1,6 @@
+<?php
+	$image = $_SESSION['image'];
+?>
 <!doctype html>
 <html lang="en">
 
@@ -37,7 +40,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="../assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+				<a href="index.html"><img src="../assets/img/warna_logo2.png"  alt="Klorofil Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -149,7 +152,7 @@
 				</div>
 				<div class="panel-body">
 					<p class="row">
-					<div class="col-md"> <a href="tambah-barang.php" button type="button" class="btn btn-warning ">Tambah Barang</a></div>
+					<div class="	col-md"> <a href="tambah-barang.php" button type="button" class="btn btn-warning ">Tambah Barang</a></div>
 					</p><br>					
 				</div>
 			</div>

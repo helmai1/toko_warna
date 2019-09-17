@@ -11,21 +11,24 @@ $password = $_POST['password'];
  
  
 // menyeleksi data user dengan username dan password yang sesuai
-$login = mysqli_query($koneksi,"select * from user where username='$username' and password='$password'");
+$query = mysqli_query($koneksi,"select * from user where username='$username' and password='$password'");
 // menghitung jumlah data yang ditemukan
-$cek = mysqli_num_rows($login);
+$cek = mysqli_num_rows($query);
  
 // cek apakah username dan password di temukan pada database
 if($cek > 0){
  
-	$data = mysqli_fetch_assoc($login);
+	$data = mysqli_fetch_assoc($query);
  
 	// cek jika user login sebagai admin
 	if($data['level']=="admin"){
  
 		// buat session login dan username
 		$_SESSION['username'] = $username;
+		$_SESSION['image'] = $data['image'];
 		$_SESSION['level'] = "admin";
+		
+		// var_dump($_SESSION['image']);
 		// alihkan ke halaman dashboard admin
 		header("location:admin/admin-tampilan.php");
  
