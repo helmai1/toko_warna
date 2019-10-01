@@ -147,12 +147,14 @@
 							<tr><th>id</th><th>Nama Supplier</th><th>Alamat Supplier</th><th>Kontak</th><th>Action</th></tr>
 						</thead>
 						<tbody>
+						
 						<?php
                             $sql = "select * from supplier";
                             $result = mysqli_query($conn, $sql);
                     				if(mysqli_num_rows($result)){
                     					while($row = mysqli_fetch_assoc($result)){
                           ?>
+						  
                           <tr>
                             <td><?php echo $row['id'] ?></td>
                             <td><?php echo $row['nama_supplier'] ?></td>

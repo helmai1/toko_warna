@@ -164,7 +164,7 @@
 			</div>
 			<!-- END MAIN CONTENT -->
 		</div>
-		<button type="button" class="btn btn-success">Success</button>
+
 	
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
