@@ -1,8 +1,27 @@
+<?php
+  include('../koneksi.php');
+  $upload_dir = '../uploads/';
+
+  if(isset($_GET['delete'])){
+		$id = $_GET['delete'];
+		$sql = "select * from barang where id = ".$id;
+		$result = mysqli_query($conn, $sql);
+		if(mysqli_num_rows($result) > 0){
+			$row = mysqli_fetch_assoc($result);
+			$image = $row['image'];
+			unlink($upload_dir.$image);
+			$sql = "delete from barang where id=".$id;
+			if(mysqli_query($conn, $sql)){
+				header('location:daftar-barang.php');
+			}
+		}
+	}
+?>
 <!doctype html>
 <html lang="en">
 
 <head>
-	<title>Home Karyawan</title><meta charset="utf-8">
+	<title>Daftar Barang</title><meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<!-- VENDOR CSS -->
@@ -37,7 +56,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-			<a href="pegawai-tampilan.php"><img src="../assets/img/warna_logo2.png"  alt="Klorofil Logo" class="img-responsive logo"></a>
+				<a href="pegawai-tampilan.php"><img src="../assets/img/warna_logo2.png"  alt="Klorofil Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -49,6 +68,7 @@
 						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
 					</div>
 				</form>
+				
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
@@ -79,13 +99,13 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/img/user.png" class="img-circle" alt="Avatar"> <span><?php echo $_SESSION['username']; ?></span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="../page-profile.php"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+								<li><a href="page-profile.html"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
 								<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
 								<li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
 								<li><a href="../logout.php"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
 							</ul>
 						</li>
-					
+
 					</ul>
 				</div>
 			</div>
@@ -106,51 +126,64 @@
 			</div>
         </div>
 		<!-- END LEFT SIDEBAR -->
-		<!-- MAIN -->
 		<div class="main">
-
-			<!-- MAIN CONTENT -->
-			<div class="main-content">
+		<!-- MAIN CONTENT -->
+		<div class="main-content">
 				<div class="container-fluid">
-	<h3 class="page-title">Halo, <?php echo $_SESSION['username']; ?></h3>
+		<h3 class="page-title">Daftar Barang</h3>
 
-	<div class="row">
-		<div class="col-md-6">
-			<!-- BUTTONS Tambah Akun -->
+		<div class="row">
+			<div class="col-md-12">
+
+			<!-- BASIC TABLE -->
 			<div class="panel">
 				<div class="panel-heading">
-					<h3 class="panel-title">Tambah Supplier</h3>
+					<h3 class="panel-title">Tabel Barang</h3>
 				</div>
 				<div class="panel-body">
-					<p class="row">
-					<div class="col-md"> <a href="tambah-supplier.php" button type="button" class="btn btn-default ">Tambah Supplier</a></div>
-					</p><br>					
+					<table class="table">
+						<thead>
+							<tr><th>Kode Barang</th><th>Foto</th><th>Nama Barang</th><th>Harga</th><th>Stok</th><th>Supplier</th><th></th></tr>
+						</thead>
+						<tbody>
+						<?php
+                            $sql = "select * from barang b inner join supplier s on b.id_supplier=s.id";;
+                            $result = mysqli_query($conn, $sql);
+                    				if(mysqli_num_rows($result)){
+                    					while($row = mysqli_fetch_assoc($result)){
+                          ?>
+                          <tr>                                                
+                            <td><?php echo $row['kode_barang'] ?></td>
+							<td><img src="<?php echo $upload_dir.$row['gambar'] ?>" height="40"></td>
+                            <td><?php echo $row['nama_barang'] ?></td>
+                            <td><?php echo $row['harga'] ?></td>
+							<td><?php echo $row['stok'] ?></td>
+							<td><?php echo $row['nama_supplier'] ?></td>
+                            <td class="text-center">
+							  <a href="barang-edit.php?id=<?php echo $row['id'] ?>" button type="button" class="btn btn-primary "><i class="fa fa-pencil" style="color: #fff"></i></a>
+                              <a href="daftar-barang.php?delete=<?php echo $row['id'] ?>" type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete this record?')"><i class="fa fa-trash" style="color: #fff"></i></a>
+							  <a href="barang-mutasi.php?id=<?php echo $row['id'] ?>" button type="button" class="btn btn-primary "><i class="fa fa-truck" style="color: #fff"></i></a>	
+							</td>
+                          </tr>
+                          <?php
+                              }
+                            }
+                          ?>
+						</tbody>
+					</table>
 				</div>
 			</div>
-			<!-- END BUTTONS Tambah Akun -->
+			<!-- END BASIC TABLE -->
 
 		</div>
-		<div class="col-md-6">
-		<!-- BUTTONS Tambah Barang -->
-		<div class="panel">
-				<div class="panel-heading">
-					<h3 class="panel-title">Tambah Barang</h3>
-				</div>
-				<div class="panel-body">
-					<p class="row">
-					<div class="col-md"> <a href="tambah-barang.php" button type="button" class="btn btn-warning ">Tambah Barang</a></div>
-					</p><br>					
-				</div>
-			</div>
 		</div>
+		
 	</div>
 	
 
 				</div>
 			</div>
 			<!-- END MAIN CONTENT -->
-		</div>
-		<button type="button" class="btn btn-success">Success</button>
 	
 	<!-- END WRAPPER -->
 	<!-- Javascript -->

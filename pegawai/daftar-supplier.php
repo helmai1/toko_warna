@@ -1,8 +1,25 @@
+<?php
+  include('../koneksi.php');
+  $upload_dir = '../uploads/';
+
+  if(isset($_GET['delete'])){
+		$id = $_GET['delete'];
+		$sql = "select * from supplier where id = ".$id;
+		$result = mysqli_query($conn, $sql);
+		if(mysqli_num_rows($result) > 0){
+			$row = mysqli_fetch_assoc($result);
+			$sql = "delete from supplier where id=".$id;
+			if(mysqli_query($conn, $sql)){
+				header('location:daftar-supplier.php');
+			}
+		}
+	}
+?>
 <!doctype html>
 <html lang="en">
 
 <head>
-	<title>Home Karyawan</title><meta charset="utf-8">
+	<title>Dashboard | Klorofil - Free Bootstrap Dashboard Template</title><meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<!-- VENDOR CSS -->
@@ -37,7 +54,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-			<a href="pegawai-tampilan.php"><img src="../assets/img/warna_logo2.png"  alt="Klorofil Logo" class="img-responsive logo"></a>
+				<a href="pegawai-tampilan.php"><img src="../assets/img/warna_logo2.png"  alt="Klorofil Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -49,6 +66,7 @@
 						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
 					</div>
 				</form>
+		
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
@@ -79,13 +97,13 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/img/user.png" class="img-circle" alt="Avatar"> <span><?php echo $_SESSION['username']; ?></span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="../page-profile.php"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+								<li><a href="page-profile.html"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
 								<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
 								<li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
 								<li><a href="../logout.php"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
 							</ul>
 						</li>
-					
+
 					</ul>
 				</div>
 			</div>
@@ -112,37 +130,53 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-	<h3 class="page-title">Halo, <?php echo $_SESSION['username']; ?></h3>
+	<h3 class="page-title">Daftar Supplier</h3>
 
 	<div class="row">
-		<div class="col-md-6">
-			<!-- BUTTONS Tambah Akun -->
+		<div class="col-md-12">
+
+			<!-- BASIC TABLE -->
 			<div class="panel">
 				<div class="panel-heading">
-					<h3 class="panel-title">Tambah Supplier</h3>
+					<h3 class="panel-title">Tabel Suppplier</h3>
 				</div>
 				<div class="panel-body">
-					<p class="row">
-					<div class="col-md"> <a href="tambah-supplier.php" button type="button" class="btn btn-default ">Tambah Supplier</a></div>
-					</p><br>					
+					<table class="table">
+						<thead>
+							<tr><th>id</th><th>Nama Supplier</th><th>Alamat Supplier</th><th>Kontak</th><th>Action</th></tr>
+						</thead>
+						<tbody>
+						
+						<?php
+                            $sql = "select * from supplier";
+                            $result = mysqli_query($conn, $sql);
+                    				if(mysqli_num_rows($result)){
+                    					while($row = mysqli_fetch_assoc($result)){
+                          ?>
+						  
+                          <tr>
+                            <td><?php echo $row['id'] ?></td>
+                            <td><?php echo $row['nama_supplier'] ?></td>
+                            <td><?php echo $row['alamat_supplier'] ?></td>
+                            <td><?php echo $row['kontak_supplier'] ?></td>
+                            <td class="text-center">
+                          
+							  <a href="supplier-edit.php?id=<?php echo $row['id'] ?>" button type="button" class="btn btn-primary ">Edit</a>
+                              <a href="daftar-supplier.php?delete=<?php echo $row['id'] ?>" type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
+                            </td>
+                          </tr>
+                          <?php
+                              }
+                            }
+                          ?>
+						</tbody>
+					</table>
 				</div>
 			</div>
-			<!-- END BUTTONS Tambah Akun -->
+			<!-- END BASIC TABLE -->
 
 		</div>
-		<div class="col-md-6">
-		<!-- BUTTONS Tambah Barang -->
-		<div class="panel">
-				<div class="panel-heading">
-					<h3 class="panel-title">Tambah Barang</h3>
-				</div>
-				<div class="panel-body">
-					<p class="row">
-					<div class="col-md"> <a href="tambah-barang.php" button type="button" class="btn btn-warning ">Tambah Barang</a></div>
-					</p><br>					
-				</div>
-			</div>
-		</div>
+		
 	</div>
 	
 
@@ -150,8 +184,7 @@
 			</div>
 			<!-- END MAIN CONTENT -->
 		</div>
-		<button type="button" class="btn btn-success">Success</button>
-	
+		
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
 	<script src="../assets/vendor/jquery/jquery.min.js"></script>
@@ -278,6 +311,13 @@
 
 	});
 	</script>
+	    <script src="js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').DataTable();
+      } );
+    </script>
 </body>
 
 </html>
