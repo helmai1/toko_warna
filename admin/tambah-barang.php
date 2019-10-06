@@ -1,5 +1,9 @@
 <?php
   include('barang-add.php')
+  
+?>
+<?php
+  $supplier 	= mysqli_query($koneksi,"SELECT * FROM supplier");
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,15 +61,10 @@
                       <select name="supplier" id="supplier" class="form-control">
                         <!-- <option value="" disabled selected>Pilih Id Admin</option> -->
                         <?php
-                            include_once("../koneksi.php");
-                            $sql ="SELECT nama_supplier FROM supplier";
-                            $result = mysqli_query($conn,$sql);
-                            if($result == true){
-                                while($row = mysqli_fetch_array($result)){ ?>
-                                    <option value="<?php $row[0] ?>"><?php echo $row[0]?></option>
-                            <?php }
-                            }
-                        ?>  
+		        					  foreach($supplier as $supplierdata){
+		        					  	echo '<option value="'.$supplierdata['id'].'">'.$supplierdata['nama_supplier'].'</option>';
+		        					}
+		        				?>
                     </select>
                     </div>
                     <div class="form-group">
