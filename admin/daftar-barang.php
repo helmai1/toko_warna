@@ -4,13 +4,13 @@
 
   if(isset($_GET['delete'])){
 		$id = $_GET['delete'];
-		$sql = "select * from barang where id = ".$id;
+		$sql = "select * from barang where id_barang = ".$id;
 		$result = mysqli_query($conn, $sql);
 		if(mysqli_num_rows($result) > 0){
 			$row = mysqli_fetch_assoc($result);
 			$image = $row['image'];
 			unlink($upload_dir.$image);
-			$sql = "delete from barang where id=".$id;
+			$sql = "delete from barang where id_barang =".$id;
 			if(mysqli_query($conn, $sql)){
 				header('location:daftar-barang.php');
 			}
@@ -144,16 +144,17 @@
 				<div class="panel-body">
 					<table class="table">
 						<thead>
-							<tr><th>Kode Barang</th><th>Foto</th><th>Nama Barang</th><th>Harga</th><th>Stok</th><th>Supplier</th><th></th></tr>
+							<tr><th>id</th><th>Kode Barang</th><th>Foto</th><th>Nama Barang</th><th>Harga</th><th>Stok</th><th>Supplier</th><th></th></tr>
 						</thead>
 						<tbody>
 						<?php
-                            $sql = "select * from barang b inner join supplier s on b.id_supplier=s.id";;
+                            $sql = "select * from barang b inner join supplier s on b.id_supplier=s.id";
                             $result = mysqli_query($conn, $sql);
                     				if(mysqli_num_rows($result)){
                     					while($row = mysqli_fetch_assoc($result)){
                           ?>
-                          <tr>                                                
+                          <tr>   
+						  	<td><?php echo $row['id_barang'] ?></td>                                             
                             <td><?php echo $row['kode_barang'] ?></td>
 							<td><img src="<?php echo $upload_dir.$row['gambar'] ?>" height="40"></td>
                             <td><?php echo $row['nama_barang'] ?></td>
@@ -161,9 +162,9 @@
 							<td><?php echo $row['stok'] ?></td>
 							<td><?php echo $row['nama_supplier'] ?></td>
                             <td class="text-center">
-							  <a href="barang-edit.php?id=<?php echo $row['id'] ?>" button type="button" class="btn btn-primary "><i class="fa fa-pencil" style="color: #fff"></i></a>
-                              <a href="daftar-barang.php?delete=<?php echo $row['id'] ?>" type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete this record?')"><i class="fa fa-trash" style="color: #fff"></i></a>
-							  <a href="barang-mutasi.php?id=<?php echo $row['id'] ?>" button type="button" class="btn btn-primary "><i class="fa fa-truck" style="color: #fff"></i></a>	
+							  <a href="barang-edit.php?id=<?php echo $row['id_barang'] ?>" button type="button" class="btn btn-primary "><i class="fa fa-pencil" style="color: #fff"></i></a>
+                              <a href="daftar-barang.php?delete=<?php echo $row['id_barang'] ?>" type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete this record?')"><i class="fa fa-trash" style="color: #fff"></i></a>
+							  <a href="barang-mutasi.php?id=<?php echo $row['id_barang'] ?>" button type="button" class="btn btn-primary "><i class="fa fa-truck" style="color: #fff"></i></a>	
 							</td>
                           </tr>
                           <?php
