@@ -136,8 +136,7 @@
 									while($row = mysqli_fetch_assoc($result)){
 					?>
 					<tr>
-						<td><?php echo $row['id'] ?></td>
-						<td><?php echo $row['id_barang'] ?></td>
+						
 						<td><?php echo $row['tanggal'] ?></td>
 						<td><?php echo $row['stok'] ?></td>
 						<td><?php echo $row['total_harga'] ?></td>
