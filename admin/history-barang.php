@@ -144,7 +144,7 @@
 			<div class="panel-body">
 				<table class="table">
 					<thead>
-						<tr><th>id</th><th>Id_barang</th><th>Tanggal</th><th>Stok</th><th>Total Harga</th></tr>
+						<tr><th>id</th><th>ID item</th><th>Tanggal</th><th>Stok</th><th>Total Harga</th></tr>
 					</thead>
 					<tbody>
 					<?php
@@ -155,7 +155,7 @@
 					?>
 					<tr>
 						<td><?php echo $row['id'] ?></td>
-						<td><?php echo $row['id_barang'] ?></td>
+						<td><?php echo $row['id_item'] ?></td>
 						<td><?php echo $row['tanggal'] ?></td>
 						<td><?php echo $row['stok'] ?></td>
 						<td><?php echo $row['total_harga'] ?></td>
