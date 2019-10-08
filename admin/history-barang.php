@@ -1,3 +1,21 @@
+<?php
+  include('../koneksi.php');
+  $upload_dir = '../uploads/';
+
+  if(isset($_GET['delete'])){
+		$id = $_GET['delete'];
+		$sql = "select * from history_barang where id = ".$id;
+		$result = mysqli_query($conn, $sql);
+		if(mysqli_num_rows($result) > 0){
+			$row = mysqli_fetch_assoc($result);
+			$sql = "delete from history_barang where id=".$id;
+			if(mysqli_query($conn, $sql)){
+				header('location:history-barang.php');
+			}
+		}
+	}
+?>
+
 <!doctype html>
 <html lang="en">
 
