@@ -117,8 +117,10 @@
 						<li><a href="admin-tampilan.php" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 						<li><a href="daftar-karyawan.php" class="active"><i class="lnr lnr-user"></i> <span>Daftar Pengelola</span></a></li>
 						<li><a href="daftar-supplier.php" class="active"><i class="lnr lnr-store"></i> <span>Daftar Supplier</span></a></li>
-						<li><a href="daftar-barang.php" class="active"><i class="lnr lnr-cart"></i> <span>Daftar Barang</span></a></li>
-						<li><a href="history-barang.php" class="active"><i class="lnr lnr-bookmark"></i> <span>History Barang</span></a></li>
+						<li><a href="daftar-barang.php" class="active"><i class="lnr lnr-cart"></i> <span>Barang Gudang</span></a></li>
+						<li><a href="daftar-barang-toko.php" class="active"><i class="lnr lnr-cart"></i> <span>Barang Toko</span></a></li>
+						<li><a href="history-barang.php" class="active"><i class="lnr lnr-bookmark"></i> <span>History Gudang</span></a></li>
+						<li><a href="history-toko.php" class="active"><i class="lnr lnr-bookmark"></i> <span>History Toko</span></a></li>
 						
 					</ul>
 				</nav>
@@ -144,7 +146,7 @@
 			<div class="panel-body">
 				<table class="table">
 					<thead>
-						<tr><th>id</th><th>Id_barang</th><th>Tanggal</th><th>Stok</th><th>Total Harga</th></tr>
+						<tr><th>id</th><th>ID item</th><th>Tanggal</th><th>Stok</th></tr>
 					</thead>
 					<tbody>
 					<?php
@@ -154,10 +156,11 @@
 									while($row = mysqli_fetch_assoc($result)){
 					?>
 					<tr>
-						
+						<td><?php echo $row['id'] ?></td>
+						<td><?php echo $row['id_item'] ?></td>
 						<td><?php echo $row['tanggal'] ?></td>
 						<td><?php echo $row['stok'] ?></td>
-						<td><?php echo $row['total_harga'] ?></td>
+						
 					</tr>
 					<?php
 						}

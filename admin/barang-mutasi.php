@@ -45,6 +45,10 @@
                       <input type="number" class="form-control" placeholder="Quantity" id="mutasiquantity" name="mutasiquantity">
                     </div>
                     <div class="form-group">
+                      <label for="mutasiharga">Harga Jual</label>
+                      <input type="number" class="form-control" placeholder="Harga Jual" id="mutasiharga" name="mutasiharga">
+                    </div>
+                    <div class="form-group">
                       <button type="submit" name="Submit" class="btn btn-primary waves">Submit</button>
                     </div>   
                 </form>

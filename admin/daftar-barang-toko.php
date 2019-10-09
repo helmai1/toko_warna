@@ -1,11 +1,27 @@
 <?php
-	$image = $_SESSION['image'];
+  include('../koneksi.php');
+  $upload_dir = '../uploads/';
+
+  if(isset($_GET['delete'])){
+		$id = $_GET['delete'];
+		$sql = "select * from barang_toko where id_barang = ".$id;
+		$result = mysqli_query($conn, $sql);
+		if(mysqli_num_rows($result) > 0){
+			$row = mysqli_fetch_assoc($result);
+			$image = $row['image'];
+			unlink($upload_dir.$image);
+			$sql = "delete from barang_toko where id_barang =".$id;
+			if(mysqli_query($conn, $sql)){
+				header('location:daftar-toko.php');
+			}
+		}
+	}
 ?>
 <!doctype html>
 <html lang="en">
 
 <head>
-	<title>Home Admin</title><meta charset="utf-8">
+	<title>Barang Toko</title><meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<!-- VENDOR CSS -->
@@ -52,6 +68,7 @@
 						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
 					</div>
 				</form>
+				
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
@@ -82,13 +99,13 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/img/user.png" class="img-circle" alt="Avatar"> <span><?php echo $_SESSION['username']; ?></span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="../page-profile.php"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+								<li><a href="page-profile.html"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
 								<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
 								<li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
 								<li><a href="../logout.php"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
 							</ul>
 						</li>
-					
+
 					</ul>
 				</div>
 			</div>
@@ -112,61 +129,64 @@
 			</div>
         </div>
 		<!-- END LEFT SIDEBAR -->
-		<!-- MAIN -->
 		<div class="main">
-
-			<!-- MAIN CONTENT -->
-			<div class="main-content">
+		<!-- MAIN CONTENT -->
+		<div class="main-content">
 				<div class="container-fluid">
-	<h3 class="page-title">Halo, <?php echo $_SESSION['username']; ?></h3>
+		<h3 class="page-title">Barang Gudang</h3>
 
-	<div class="row">
-		<div class="col-md-6">
-			<!-- BUTTONS Tambah Akun -->
+		<div class="row">
+			<div class="col-md-12">
+
+			<!-- BASIC TABLE -->
 			<div class="panel">
 				<div class="panel-heading">
-					<h3 class="panel-title">Tambah Akun</h3>
+					<h3 class="panel-title">Tabel Barang</h3>
 				</div>
 				<div class="panel-body">
-					<p class="row">
-					<div class="col-md"> <a href="tambah-user.php" button type="button" class="btn btn-primary ">Tambah Akun Admin / Pegawai</a></div>
-					</p><br>					
+					<table class="table">
+						<thead>
+							<tr><th>id</th><th>Kode Barang</th><th>Gambar</th><th>Nama Barang</th><th>Stok</th><th>Harga Jual Barang</th><th></th></tr>
+						</thead>
+						<tbody>
+						<?php
+                            $sql = "select * from barang_toko a JOIN barang b ON a.id_barang=b.id_barang";
+                            $result = mysqli_query($conn, $sql);
+                    				if(mysqli_num_rows($result)){
+                    					while($row = mysqli_fetch_assoc($result)){
+                          ?>
+                          <tr>   
+						  	<td><?php echo $row['id_barang'] ?></td>                                             
+                            <td><?php echo $row['kode_barang'] ?></td>
+							<td><img src="<?php echo $upload_dir.$row['gambar'] ?>" height="40"></td>
+                            <td><?php echo $row['nama_barang'] ?></td>
+							<td><?php echo $row['stok'] ?></td>
+							<td><?php echo $row['harga_jual'] ?></td>
+                            <td class="text-center">
+							  <a href="barang-edit.php?id=<?php echo $row['id_barang'] ?>" button type="button" class="btn btn-primary "><i class="fa fa-pencil" style="color: #fff"></i></a>
+                              <a href="daftar-barang.php?delete=<?php echo $row['id_barang'] ?>" type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete this record?')"><i class="fa fa-trash" style="color: #fff"></i></a>
+							  <a href="barang-mutasi.php?id=<?php echo $row['id_barang'] ?>" button type="button" class="btn btn-primary "><i class="fa fa-truck" style="color: #fff"></i></a>	
+							</td>
+                          </tr>
+                          <?php
+                              }
+                            }
+                          ?>
+						</tbody>
+					</table>
 				</div>
 			</div>
-			<div class="panel">
-				<div class="panel-heading">
-					<h3 class="panel-title">Tambah Supplier</h3>
-				</div>
-				<div class="panel-body">
-					<p class="row">
-					<div class="col-md"> <a href="tambah-supplier.php" button type="button" class="btn btn-default ">Tambah Supplier</a></div>
-					</p><br>					
-				</div>
-			</div>
-			<!-- END BUTTONS Tambah Akun -->
+			<!-- END BASIC TABLE -->
 
 		</div>
-		<div class="col-md-6">
-		<!-- BUTTONS Tambah Barang -->
-		<div class="panel">
-				<div class="panel-heading">
-					<h3 class="panel-title">Tambah Barang</h3>
-				</div>
-				<div class="panel-body">
-					<p class="row">
-					<div class="	col-md"> <a href="tambah-barang.php" button type="button" class="btn btn-warning ">Tambah Barang</a></div>
-					</p><br>					
-				</div>
-			</div>
 		</div>
+		
 	</div>
 	
 
 				</div>
 			</div>
 			<!-- END MAIN CONTENT -->
-		</div>
-
 	
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
@@ -176,124 +196,7 @@
 	<script src="../assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 	<script src="../assets/vendor/chartist/js/chartist.min.js"></script>
 	<script src="../assets/scripts/klorofil-common.js"></script>
-	<script>
-	$(function() {
-		var data, options;
-
-		// headline charts
-		data = {
-			labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-			series: [
-				[23, 29, 24, 40, 25, 24, 35],
-				[14, 25, 18, 34, 29, 38, 44],
-			]
-		};
-
-		options = {
-			height: 300,
-			showArea: true,
-			showLine: false,
-			showPoint: false,
-			fullWidth: true,
-			axisX: {
-				showGrid: false
-			},
-			lineSmooth: false,
-		};
-
-		new Chartist.Line('#headline-chart', data, options);
-
-
-		// visits trend charts
-		data = {
-			labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-			series: [{
-				name: 'series-real',
-				data: [200, 380, 350, 320, 410, 450, 570, 400, 555, 620, 750, 900],
-			}, {
-				name: 'series-projection',
-				data: [240, 350, 360, 380, 400, 450, 480, 523, 555, 600, 700, 800],
-			}]
-		};
-
-		options = {
-			fullWidth: true,
-			lineSmooth: false,
-			height: "270px",
-			low: 0,
-			high: 'auto',
-			series: {
-				'series-projection': {
-					showArea: true,
-					showPoint: false,
-					showLine: false
-				},
-			},
-			axisX: {
-				showGrid: false,
-
-			},
-			axisY: {
-				showGrid: false,
-				onlyInteger: true,
-				offset: 0,
-			},
-			chartPadding: {
-				left: 20,
-				right: 20
-			}
-		};
-
-		new Chartist.Line('#visits-trends-chart', data, options);
-
-
-		// visits chart
-		data = {
-			labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-			series: [
-				[6384, 6342, 5437, 2764, 3958, 5068, 7654]
-			]
-		};
-
-		options = {
-			height: 300,
-			axisX: {
-				showGrid: false
-			},
-		};
-
-		new Chartist.Bar('#visits-chart', data, options);
-
-
-		// real-time pie chart
-		var sysLoad = $('#system-load').easyPieChart({
-			size: 130,
-			barColor: function(percent) {
-				return "rgb(" + Math.round(200 * percent / 100) + ", " + Math.round(200 * (1.1 - percent / 100)) + ", 0)";
-			},
-			trackColor: 'rgba(245, 245, 245, 0.8)',
-			scaleColor: false,
-			lineWidth: 5,
-			lineCap: "square",
-			animate: 800
-		});
-
-		var updateInterval = 3000; // in milliseconds
-
-		setInterval(function() {
-			var randomVal;
-			randomVal = getRandomInt(0, 100);
-
-			sysLoad.data('easyPieChart').update(randomVal);
-			sysLoad.find('.percent').text(randomVal);
-		}, updateInterval);
-
-		function getRandomInt(min, max) {
-			return Math.floor(Math.random() * (max - min + 1)) + min;
-		}
-
-	});
-	</script>
+	
 </body>
 
 </html>
