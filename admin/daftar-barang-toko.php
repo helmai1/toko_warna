@@ -160,7 +160,7 @@
                             <td><?php echo $row['kode_barang'] ?></td>
 							<td><img src="<?php echo $upload_dir.$row['gambar'] ?>" height="40"></td>
                             <td><?php echo $row['nama_barang'] ?></td>
-							<td><?php echo $row['stok'] ?></td>
+							<td><?php echo $row['stok_barang'] ?></td>
 							<td><?php echo $row['harga_jual'] ?></td>
                             <td class="text-center">
 							  <a href="barang-edit.php?id=<?php echo $row['id_barang'] ?>" button type="button" class="btn btn-primary "><i class="fa fa-pencil" style="color: #fff"></i></a>

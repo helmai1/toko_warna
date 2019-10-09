@@ -26,14 +26,21 @@
 		if(!isset($errorMsg)){
 			$sql = "insert into history_barang(id_item , tanggal,stok, harga_jual )
 					values('".$id."', '".$tanggalmutasi."', '".$mutasiquantity."', '".$hargajual."')";
-			$sql2 = "insert into barang_toko(stok_barang, harga_jual, id_barang)
-					values('".$quantity_toko."', '".$hargajual."', '".$id."')";
+
+			$kueri = "SELECT id_barang, stok_barang, harga_jual FROM barang_toko WHERE id_barang = '".$_GET['id']."'";
+			$data = mysqli_fetch_array(mysqli_query($koneksi, $kueri));
+
+			$stok_tambah = $data['stok_barang'] + $mutasiquantity;
+
+			$sql2 = "UPDATE barang_toko SET stok_barang = '".$stok_tambah."', harga_jual = '".$hargajual."' WHERE id_barang = '".$_GET['id']."'" ;
+
+			// $sql2 = "insert into barang_toko(stok_barang, harga_jual, id_barang)
+			// 		values('".$quantity_toko."', '".$hargajual."', '".$id."')";
 
 			$result = mysqli_query($conn, $sql);
 			$result2 = mysqli_query($conn, $sql2);
 			if($result && $result2){
-                $quantityupdate = mysqli_query($koneksi,"UPDATE barang SET stok='$quantity' WHERE id_barang='$id'
-				");
+                $quantityupdate = mysqli_query($koneksi,"UPDATE barang SET stok='$quantity' WHERE id_barang='$id' ");
 				$successMsg = 'New record added successfully';
 				header('Location: admin-tampilan.php');
 			}else if($quantity>=0){
