@@ -143,7 +143,7 @@
 				<div class="panel-body">
 					<table class="table">
 						<thead>
-							<tr><th>id</th><th>Nama Supplier</th><th>Alamat Supplier</th><th>Kontak</th><th>Action</th></tr>
+							<tr><th>id</th><th>Nama Supplier</th><th>Alamat Supplier</th><th>Kontak</th></tr>
 						</thead>
 						<tbody>
 						
@@ -161,9 +161,7 @@
                             <td><?php echo $row['kontak_supplier'] ?></td>
                             <td class="text-center">
                           
-							  <a href="supplier-edit.php?id=<?php echo $row['id'] ?>" button type="button" class="btn btn-primary ">Edit</a>
-                              <a href="daftar-supplier.php?delete=<?php echo $row['id'] ?>" type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete this record?')">Delete</a>
-                            </td>
+							  </td>
                           </tr>
                           <?php
                               }

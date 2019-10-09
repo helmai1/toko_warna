@@ -116,21 +116,6 @@
 
 	<div class="row">
 		<div class="col-md-6">
-			<!-- BUTTONS Tambah Akun -->
-			<div class="panel">
-				<div class="panel-heading">
-					<h3 class="panel-title">Tambah Supplier</h3>
-				</div>
-				<div class="panel-body">
-					<p class="row">
-					<div class="col-md"> <a href="tambah-supplier.php" button type="button" class="btn btn-default ">Tambah Supplier</a></div>
-					</p><br>					
-				</div>
-			</div>
-			<!-- END BUTTONS Tambah Akun -->
-
-		</div>
-		<div class="col-md-6">
 		<!-- BUTTONS Tambah Barang -->
 		<div class="panel">
 				<div class="panel-heading">
