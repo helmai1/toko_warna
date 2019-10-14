@@ -27,8 +27,8 @@
 			$sql = "insert into history_barang(id_item , tanggal,stok, harga_jual )
 					values('".$id."', '".$tanggalmutasi."', '".$mutasiquantity."', '".$hargajual."')";
 
-			// $sql3 = "insert into barang_toko(stok_barang, harga_jual, id_barang)
-			// 			values('".$quantity_toko."', '".$hargajual."', '".$id."')";	
+			$sql3 = "insert into barang_toko(stok_barang, harga_jual, id_barang)
+					values('".$quantity_toko."', '".$hargajual."', '".$_GET['id']."')";	
 
 			$kueri = "SELECT id_barang, stok_barang, harga_jual FROM barang_toko WHERE id_barang = '".$_GET['id']."'";
 			$data = mysqli_fetch_array(mysqli_query($koneksi, $kueri));
@@ -41,7 +41,7 @@
 
 			$result = mysqli_query($conn, $sql);
 			$result2 = mysqli_query($conn, $sql2);
-			// $result3 = mysqli_query($conn, $sql3);
+			$result3 = mysqli_query($conn, $sql3);
 			if($result && $result2 ){
                 $quantityupdate = mysqli_query($koneksi,"UPDATE barang SET stok='$quantity' WHERE id_barang='$id' ");
 				$successMsg = 'New record added successfully';

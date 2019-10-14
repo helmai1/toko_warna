@@ -150,13 +150,13 @@
 						</thead>
 						<tbody>
 						<?php
-                            $sql = "select * from barang_toko a JOIN barang b ON a.id_barang=b.id_barang";
+                            $sql = "select a.id_barang, b.kode_barang, b.gambar, b.nama_barang, sum(a.stok_barang) as stok_barang, a.harga_jual from barang_toko a JOIN barang b ON a.id_barang=b.id_barang GROUP BY a.id_barang";
                             $result = mysqli_query($conn, $sql);
                     				if(mysqli_num_rows($result)){
                     					while($row = mysqli_fetch_assoc($result)){
                           ?>
                           <tr>   
-						  	<td><?php echo $row['id_barang'] ?></td>                                             
+						  	<td><?php echo $row['id_barang'] ?></td>  							                                 
                             <td><?php echo $row['kode_barang'] ?></td>
 							<td><img src="<?php echo $upload_dir.$row['gambar'] ?>" height="40"></td>
                             <td><?php echo $row['nama_barang'] ?></td>
@@ -165,7 +165,7 @@
                             <td class="text-center">
 							  <a href="barang-edit.php?id=<?php echo $row['id_barang'] ?>" button type="button" class="btn btn-primary "><i class="fa fa-pencil" style="color: #fff"></i></a>
                               <a href="daftar-barang.php?delete=<?php echo $row['id_barang'] ?>" type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete this record?')"><i class="fa fa-trash" style="color: #fff"></i></a>
-							  <a href="barang-mutasi.php?id=<?php echo $row['id_barang'] ?>" button type="button" class="btn btn-primary "><i class="fa fa-truck" style="color: #fff"></i></a>	
+							  <a href="barang-toko-mutasi.php?id=<?php echo $row['id_barang'] ?>" button type="button" class="btn btn-primary "><i class="fa fa-truck" style="color: #fff"></i></a>	
 							</td>
                           </tr>
                           <?php
