@@ -98,7 +98,8 @@
 					<ul class="nav">
 						<li><a href="pegawai-tampilan.php" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 						<li><a href="daftar-supplier.php" class="active"><i class="lnr lnr-store"></i> <span>Daftar Supplier</span></a></li>
-						<li><a href="daftar-barang.php" class="active"><i class="lnr lnr-cart"></i> <span>Daftar Barang</span></a></li>
+						<li><a href="daftar-barang.php" class="active"><i class="lnr lnr-cart"></i> <span>Barang Toko</span></a></li>
+						<li><a href="daftar-barang-toko.php" class="active"><i class="lnr lnr-cart"></i> <span>Barang Gudang</span></a></li>
 						
 						
 					</ul>
