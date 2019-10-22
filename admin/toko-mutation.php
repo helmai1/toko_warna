@@ -10,7 +10,7 @@
 		$tanggalmutasi		= $_POST['tanggalmutasi'];
 		$mutasiquantity		= $_POST['mutasiquantity'];
         $harga 				= $databarang['harga_jual'] * $mutasiquantity;
-        $quantity = $databarang['stok_barang'] - $mutasiquantity;
+        $quantity = $databarang['sum(stok_barang)'] - $mutasiquantity;
 		
 		// var_dump($mutasiquantity, $harga, $quantity);
 		var_dump($databarang);
@@ -40,7 +40,7 @@
 			// $result2 = mysqli_query($conn, $sql2);
 			// $result3 = mysqli_query($conn, $sql3);
 			if($result){
-                $quantityupdate = mysqli_query($koneksi,"UPDATE barang_toko SET stok_barang='$quantity' WHERE id_barang='$id' ");
+                $quantityupdate = mysqli_query($koneksi,"UPDATE barang_toko SET sum(stok_barang='$quantity') WHERE id_barang='$id' ");
 				$successMsg = 'New record added successfully';
 				header('Location: admin-tampilan.php');
 			}else if($quantity>=0){

@@ -133,7 +133,7 @@
 		<!-- MAIN CONTENT -->
 		<div class="main-content">
 				<div class="container-fluid">
-		<h3 class="page-title">Barang Gudang</h3>
+		<h3 class="page-title">Barang Toko</h3>
 
 		<div class="row">
 			<div class="col-md-12">
