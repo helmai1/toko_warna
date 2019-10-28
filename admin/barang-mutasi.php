@@ -1,5 +1,5 @@
 <?php
-  include('goods-mutation.php')
+  // include('goods-mutation.php')
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,7 +49,7 @@
                       <input type="number" class="form-control" placeholder="Harga Jual" id="mutasiharga" name="mutasiharga">
                     </div>
                     <div class="form-group">
-                      <button type="submit" name="Submit" class="btn btn-primary waves">Submit</button>
+                      <button type="submit" name="submit" class="btn btn-primary waves">Submit</button>
                     </div>   
                 </form>
               </div>

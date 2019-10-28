@@ -49,8 +49,12 @@
                     </div>
                     
                     <div class="form-group">
-                      <label for="level">level</label>
-                      <input type="text" class="form-control" name="level" placeholder="Enter Level" value="">
+                    <label for="supplier">Level</label>
+                    <select name="level" id="level" class="form-control">
+                      <option value="admin">admin</option>
+                      <option value="pegawai">pegawai</option>
+                    </select>
+                      
                     </div>
                     <div class="form-group">
                       <label for="image">Choose Image</label>

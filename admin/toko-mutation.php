@@ -5,15 +5,20 @@
 
   if (isset($_POST['Submit'])) {
         $id = $_GET['id'];
-        $barang 	= mysqli_query($koneksi,"SELECT * FROM barang_toko WHERE id_barang='$id'");
-        $databarang = mysqli_fetch_array($barang);
+        // $id = 16;
+        $barang 	= mysqli_query($koneksi,"SELECT sum(stok_barang) as total, harga_jual FROM barang_toko b WHERE b.id_barang='$id' GROUP BY b.stok_barang");
+		$databarang = mysqli_fetch_array($barang);
+		
+		
 		$tanggalmutasi		= $_POST['tanggalmutasi'];
 		$mutasiquantity		= $_POST['mutasiquantity'];
         $harga 				= $databarang['harga_jual'] * $mutasiquantity;
-        $quantity = $databarang['sum(stok_barang)'] - $mutasiquantity;
+		$quantity = $databarang['total'] - $mutasiquantity;
+		
+		// var_dump($databarang['total'], $mutasiquantity, $quantity);
+		// die();
 		
 		// var_dump($mutasiquantity, $harga, $quantity);
-		var_dump($databarang);
 	
     if(empty($tanggalmutasi)){
 			$errorMsg = 'Please input tanggal';
@@ -39,16 +44,16 @@
 			$result = mysqli_query($conn, $sql);
 			// $result2 = mysqli_query($conn, $sql2);
 			// $result3 = mysqli_query($conn, $sql3);
-			if($result){
-                $quantityupdate = mysqli_query($koneksi,"UPDATE barang_toko SET sum(stok_barang='$quantity') WHERE id_barang='$id' ");
+			// if($result){
+                $quantityupdate = mysqli_query($koneksi,"UPDATE barang_toko SET stok_barang='$quantity' WHERE id_barang='$id' ");
 				$successMsg = 'New record added successfully';
 				header('Location: admin-tampilan.php');
-			}else if($quantity>=0){
-				alert("Stok habis!");
-				header('Location: toko-mutation.php');
-			}else{
-				$errorMsg = 'Error '.mysqli_error($conn);
-			}
+			// }else if($quantity>=0){
+			// 	alert("Stok habis!");
+			// 	header('Location: toko-mutation.php');
+			// }else{
+			// 	$errorMsg = 'Error '.mysqli_error($conn);
+			// }
 		}
   }
 ?>
