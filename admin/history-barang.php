@@ -136,6 +136,12 @@
 		<h3 class="page-title">History Barang</h3>
 
 		<div class="row">
+			<div class="col-md-3">
+				<a href="print-history.php" target="_BLANK" button type="button" class="btn btn-primary ">Print History</a></div>
+			</div>
+		</div>
+
+		<div class="row">
 		<div class="col-md-12">
 
 		<!-- BASIC TABLE -->

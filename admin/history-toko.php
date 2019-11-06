@@ -134,6 +134,11 @@
 		<div class="main-content">
 			<div class="container-fluid">
 		<h3 class="page-title">History Barang</h3>
+		<div class="row">
+			<div class="col-md-3">
+				<a href="print-history-toko.php" target="_BLANK" button type="button" class="btn btn-primary ">Print History</a></div>
+			</div>
+		</div>
 
 		<div class="row">
 		<div class="col-md-12">
@@ -143,6 +148,7 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Tabel History Barang</h3>
 			</div>
+			
 			<div class="panel-body">
 				<table class="table">
 					<thead>
