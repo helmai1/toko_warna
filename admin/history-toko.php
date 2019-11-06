@@ -146,7 +146,7 @@
 		<!-- BASIC TABLE -->
 		<div class="panel">
 			<div class="panel-heading">
-				<h3 class="panel-title">Tabel History Barang</h3>
+				<h3 class="panel-title">Tabel History Barang Toko</h3>
 			</div>
 			
 			<div class="panel-body">
